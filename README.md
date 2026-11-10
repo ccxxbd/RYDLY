@@ -2,44 +2,63 @@
 
 **Ride together. Go further.**
 
-RYDLY is a rider-first community platform: social riding, group rides, motorcycle ownership, achievements and a rider-to-rider marketplace in one place.
+RYDLY is a Bangladesh-first rider community platform, designed for English and Bangla users and structured for international expansion. It brings rider identity, motorcycle ownership, social riding, clubs, group rides and a rider-to-rider marketplace together.
 
-## Current status
+## Implemented foundation
 
-This repository starts with the responsive public-facing product foundation. The current homepage is a frontend concept with sample content and local interaction states. It is not yet connected to authentication, a database, maps, messaging, payments or live GPS.
+- Responsive RYDLY public landing page.
+- Supabase email/password registration and login.
+- Email confirmation callback route.
+- Protected rider dashboard and sign-out.
+- Supabase browser/server clients and middleware session refresh.
+- PostgreSQL migration for profiles, motorcycles, posts, reactions, comments, follows, clubs, rides, ride participants, marketplace listings and reports.
+- Row Level Security policies on the core tables.
 
-## Stack
+The feed, ride cards and marketplace preview on the public homepage are sample content. The rider dashboard currently provides the authenticated entry point; garage, clubs, rides and marketplace screens are the next implementation milestones.
 
-- Next.js 15 + React 19 + TypeScript
-- Tailwind CSS 4
-- Lucide icons
+## Technology
 
-## Local development
+- Next.js 15, React 19 and TypeScript
+- Tailwind CSS 4 and Lucide icons
+- Supabase Auth and PostgreSQL with Row Level Security
 
-```bash
-npm install
-npm run dev
-```
+## Local setup
 
-Open http://localhost:3000.
+1. Install dependencies with npm install.
+2. Copy .env.example to .env.local.
+3. Add your Supabase project URL and publishable/anon key.
+4. Run npm run dev.
 
-## Product roadmap
+Required environment variables:
 
-1. **Foundation:** Supabase project, authentication, profiles, rider privacy and role model.
-2. **Rider core:** garage, follows, feed, posts, comments, reactions and notifications.
-3. **Ride network:** clubs, events, ride requests, organizer tools and safety checklists.
-4. **Marketplace:** motorcycle/parts/gear listings, seller profiles, enquiries, moderation and reporting.
-5. **Progress:** achievements, ride passport and responsible-riding challenges.
-6. **Trust & scale:** business directory, moderation console, analytics, PWA and native mobile apps.
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+## Supabase setup
+
+1. Create a Supabase project.
+2. In Project Settings → API, copy the Project URL and publishable key (or legacy anon key).
+3. Add both values to Vercel Environment Variables for Preview and Production.
+4. Open Supabase SQL Editor and run supabase/migrations/0001_rydly_core.sql.
+5. In Authentication → URL Configuration, set the Site URL to your deployed domain.
+6. Add allowed redirect URLs for your local and deployed callback routes, including http://localhost:3000/auth/callback and https://YOUR_DOMAIN/auth/callback.
+7. Redeploy on Vercel after adding environment variables.
+
+Never expose a Supabase service-role key in browser code or commit it to GitHub. The app only needs the public publishable/anon key in these two NEXT_PUBLIC variables.
+
+## Roadmap
+
+1. Authentication and rider account foundation — implemented.
+2. Rider profile editor and motorcycle garage.
+3. Live social feed, follows, comments, media storage and notifications.
+4. Clubs, ride creation, registration and organizer tools.
+5. Classified marketplace with seller enquiries and moderation.
+6. Achievements, ride passport, business directory and mobile apps.
 
 ## Product principles
 
 - Safety and privacy before engagement mechanics.
 - No speed contests or incentives for risky riding.
-- Location sharing is opt-in, temporary and clearly visible.
-- Marketplace starts as classifieds and enquiries; payments/escrow are a later, compliance-reviewed phase.
-- Bangladesh-first launch, designed to expand internationally.
-
-## Environment
-
-No secrets are required for the initial frontend. Supabase and map credentials will be added only when those integrations are implemented. Never commit private keys or service-role credentials.
+- Location sharing must be opt-in, temporary and clearly visible.
+- Marketplace starts with classifieds and enquiries; payments and escrow require separate legal and operational review.
+- Bangladesh-first launch, with country-aware data structures for expansion.
