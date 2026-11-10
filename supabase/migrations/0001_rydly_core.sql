@@ -139,14 +139,14 @@ create policy "Read public clubs" on public.clubs for select to authenticated us
 create policy "Create clubs" on public.clubs for insert to authenticated with check(auth.uid()=created_by);
 create policy "Update own clubs" on public.clubs for update to authenticated using(auth.uid()=created_by) with check(auth.uid()=created_by);
 create policy "Read memberships" on public.club_members for select to authenticated using(true);
-create policy "Join as self" on public.club_members for insert to authenticated with check(auth.uid()=user_id);
+create policy "Join clubs as a regular member" on public.club_members for insert to authenticated with check(auth.uid()=user_id and role='member');
 create policy "Leave as self" on public.club_members for delete to authenticated using(auth.uid()=user_id);
 create policy "Read published rides" on public.rides for select to authenticated using(status in('published','full','completed') or organizer_id=auth.uid());
 create policy "Create rides" on public.rides for insert to authenticated with check(auth.uid()=organizer_id);
 create policy "Update own rides" on public.rides for update to authenticated using(auth.uid()=organizer_id) with check(auth.uid()=organizer_id);
 create policy "Delete own rides" on public.rides for delete to authenticated using(auth.uid()=organizer_id);
 create policy "Read ride participants" on public.ride_participants for select to authenticated using(true);
-create policy "Request ride as self" on public.ride_participants for insert to authenticated with check(auth.uid()=rider_id);
+create policy "Request ride participation" on public.ride_participants for insert to authenticated with check(auth.uid()=rider_id and status='requested');
 create policy "Cancel own request" on public.ride_participants for delete to authenticated using(auth.uid()=rider_id);
 create policy "Read active or own listings" on public.marketplace_listings for select to authenticated using(status='active' or seller_id=auth.uid());
 create policy "Create own listings" on public.marketplace_listings for insert to authenticated with check(auth.uid()=seller_id);
