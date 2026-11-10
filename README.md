@@ -14,7 +14,7 @@ RYDLY is a Bangladesh-first rider community platform, designed for English and B
 - PostgreSQL migration for profiles, motorcycles, posts, reactions, comments, follows, clubs, rides, ride participants, marketplace listings and reports.
 - Row Level Security policies on the core tables.
 
-The feed, ride cards and marketplace preview on the public homepage are sample content. The rider dashboard currently provides the authenticated entry point; garage, clubs, rides and marketplace screens are the next implementation milestones.
+The feed, ride cards and marketplace preview on the public homepage are sample content. The rider dashboard provides the authenticated entry point, and My Garage now supports adding, viewing and removing motorcycles using the signed-in rider's Supabase records. Service history, clubs, rides and marketplace screens are subsequent milestones.
 
 ## Technology
 
@@ -49,7 +49,7 @@ Never expose a Supabase service-role key in browser code or commit it to GitHub.
 ## Roadmap
 
 1. Authentication and rider account foundation — implemented.
-2. Rider profile editor and motorcycle garage.
+2. Rider profile editor, then service history and maintenance reminders for the garage.
 3. Live social feed, follows, comments, media storage and notifications.
 4. Clubs, ride creation, registration and organizer tools.
 5. Classified marketplace with seller enquiries and moderation.
